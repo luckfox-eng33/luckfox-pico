@@ -10,6 +10,7 @@
  *  2010 - 2012 Goodix Technology.
  */
 
+#define DEBUG
 
 #include <linux/kernel.h>
 #include <linux/dmi.h>
