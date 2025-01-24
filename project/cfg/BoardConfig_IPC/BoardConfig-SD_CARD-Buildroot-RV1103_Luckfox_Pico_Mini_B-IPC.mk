@@ -3,7 +3,7 @@
 #################################################
 # 	Board Config
 #################################################
-
+export LF_ORIGIN_BOARD_CONFIG=BoardConfig-SD_CARD-Buildroot-RV1103_Luckfox_Pico_Mini_B-IPC.mk
 # Target CHIP
 export RK_CHIP=rv1106
 
@@ -14,13 +14,13 @@ export RK_APP_TYPE=RKIPC_RV1103
 export RK_BOOTARGS_CMA_SIZE="24M"
 
 # Kernel dts
-export RK_KERNEL_DTS=rv1103g-luckfox-pico-mini-b.dts
+export RK_KERNEL_DTS=rv1103g-luckfox-pico-mini.dts
 
 #################################################
 #	BOOT_MEDIUM
 #################################################
 
-# Target boot medium: sd_card/spi_nor/spi_nand
+# Target boot medium
 export RK_BOOT_MEDIUM=sd_card
 
 # Uboot defconfig fragment
@@ -35,7 +35,7 @@ export RK_UBOOT_DEFCONFIG_FRAGMENT=rk-emmc.config
 #       <partdef> := <size>[@<offset>](part-name)
 # Note:
 #   If the first partition offset is not 0x0, it must be added. Otherwise, it needn't adding.
-export RK_PARTITION_CMD_IN_ENV="32K(env),512K@32K(idblock),256K(uboot),32M(boot),512M(oem),256M(userdata),6G(rootfs),-(media)"
+export RK_PARTITION_CMD_IN_ENV="32K(env),512K@32K(idblock),256K(uboot),32M(boot),512M(oem),256M(userdata),6G(rootfs)"
 
 # config partition's filesystem type (squashfs is readonly)
 # emmc:    squashfs/ext4
@@ -58,7 +58,7 @@ export RK_PARTITION_FS_TYPE_CFG=rootfs@IGNORE@ext4,userdata@/userdata@ext4,oem@/
 #	TARGET_ROOTFS
 #################################################
 
-# Target rootfs : ubuntu(only sd_card)/buildroot/busybox
+# Target rootfs
 export LF_TARGET_ROOTFS=buildroot
 
 # Buildroot defconfig
@@ -102,3 +102,16 @@ export RK_BUILD_APP_TO_OEM_PARTITION=y
 
 # enable rockchip test
 export RK_ENABLE_ROCKCHIP_TEST=y
+
+#################################################
+# 	PRE and POST
+#################################################
+
+# specify pre.sh for delete/overlay files
+export RK_PRE_BUILD_OEM_SCRIPT=luckfox-buildroot-oem-pre.sh
+
+# specify post.sh for delete/overlay files
+export RK_PRE_BUILD_USERDATA_SCRIPT=luckfox-userdata-pre.sh
+
+# declare overlay directory
+export RK_POST_OVERLAY="overlay-luckfox-config overlay-luckfox-buildroot-init overlay-luckfox-buildroot-shadow"
